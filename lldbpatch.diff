@@ -1,0 +1,29 @@
+From 075425adae258a1d8b8e550d6039b902f7244697 Mon Sep 17 00:00:00 2001
+From: "jose.pereda" <jose.pereda@gluonhq.com>
+Date: Thu, 2 Jan 2020 10:57:08 +0100
+Subject: [PATCH] =?UTF-8?q?Don=E2=80=99t=20stop=20listening=20for=20events?=
+ =?UTF-8?q?,=20to=20allow=20debug=20output=20all=20times?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ src/scripts/lldb.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/scripts/lldb.py b/src/scripts/lldb.py
+index 04e6aca..6217e09 100644
+--- a/src/scripts/lldb.py
++++ b/src/scripts/lldb.py
+@@ -103,7 +103,7 @@ def autoexit_command(debugger, command, result, internal_dict):
+     printBacktraceTime = time.time() + detectDeadlockTimeout if detectDeadlockTimeout > 0 else None
+     
+     # This line prevents internal lldb listener from processing STDOUT/STDERR messages. Without it, an order of log writes is incorrect sometimes
+-    debugger.GetListener().StopListeningForEvents(process.GetBroadcaster(), lldb.SBProcess.eBroadcastBitSTDOUT | lldb.SBProcess.eBroadcastBitSTDERR )
++    # debugger.GetListener().StopListeningForEvents(process.GetBroadcaster(), lldb.SBProcess.eBroadcastBitSTDOUT | lldb.SBProcess.eBroadcastBitSTDERR )
+ 
+     event = lldb.SBEvent()
+     
+-- 
+2.8.1
+
